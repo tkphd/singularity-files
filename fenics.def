@@ -1,0 +1,18 @@
+Bootstrap: docker
+From: quay.io/fenicsproject/stable:current
+
+%help
+
+	Singularity container with FEniCS and Voronoi
+
+%post
+
+    sed -i "s_http://_http://192.168.122.1:3142/_g" /etc/apt/sources.list
+    apt-get update
+    apt-get -y dist-upgrade
+    apt install -y coinor-libipopt-dev libcairo2 libcairo2-dev \
+        libgirepository1.0-dev 
+    pip3 install --upgrade pip
+    pip3 install --upgrade cython mpi4py numpy pycairo scipy setuptools \
+        sympy tqdm voronoi
+    pip3 install --upgrade pycalphad signac signac-flow signac-dashboard
